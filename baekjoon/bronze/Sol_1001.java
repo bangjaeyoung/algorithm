@@ -1,6 +1,8 @@
+package baekjoon.bronze;
+
 import java.util.Scanner;
 
-public class Main {
+public class Sol_1001 {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

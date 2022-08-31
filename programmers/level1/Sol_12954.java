@@ -1,4 +1,6 @@
-class Solution {
+package programmers.level1;
+
+class Sol_12954 {
     
     public long[] solution(int x, int n) {
       

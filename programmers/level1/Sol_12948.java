@@ -1,4 +1,6 @@
-class Solution {
+package programmers.level1;
+
+class Sol_12948 {
     public String solution(String phone_number) {
         StringBuilder builder = new StringBuilder(phone_number);
         

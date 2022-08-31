@@ -1,4 +1,6 @@
-class Solution {
+package programmers.level1;
+
+class Sol_12912 {
     public long solution(int a, int b) {
         long answer = 0;
         

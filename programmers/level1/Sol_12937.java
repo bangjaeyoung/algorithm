@@ -1,4 +1,6 @@
-class Solution {
+package programmers.level1;
+
+class Sol_12937 {
    
   public String solution(int num) {
        

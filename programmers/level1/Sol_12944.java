@@ -1,4 +1,6 @@
-class Solution {
+package programmers.level1;
+
+class Sol_12944 {
     public double solution(int[] arr) {
         double answer = 0;
         double sum = 0;

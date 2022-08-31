@@ -1,6 +1,8 @@
+package programmers.level1;
+
 import java.util.Scanner;
 
-class Solution {
+class Sol_12969 {
     public static void main(String[] args) {
         
         Scanner sc = new Scanner(System.in);
