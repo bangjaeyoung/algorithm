@@ -11,27 +11,11 @@ public class Sol_2908 {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        // 문자열 a, b 구분
         StringTokenizer st = new StringTokenizer(br.readLine());
-        String a = st.nextToken();
-        String b = st.nextToken();
 
-        // 문자열 a, b 거꾸로 뒤집기
-        StringBuilder sb = new StringBuilder(a);
-        String aReverse = sb.reverse().toString();
+        int a = Integer.parseInt(new StringBuilder(st.nextToken()).reverse().toString());
+        int b = Integer.parseInt(new StringBuilder(st.nextToken()).reverse().toString());
 
-        StringBuilder sb2 = new StringBuilder(b);
-        String bReverse = sb2.reverse().toString();
-
-        String result = "";
-
-        if (Integer.parseInt(aReverse) > Integer.parseInt(bReverse)) {
-            result = aReverse;
-        }
-        else {
-            result = bReverse;
-        }
-
-        System.out.println(result);
+        System.out.println(a > b ? a : b);
     }
 }
