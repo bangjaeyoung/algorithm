@@ -9,7 +9,7 @@ package programmers.level1;
 
 public class Sol_12943 {
 
-    public  int solution(long num) {
+    public int solution(long num) {
 
         // 예외 조건
         if (num == 1) {
