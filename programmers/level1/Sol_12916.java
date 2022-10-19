@@ -1,19 +1,7 @@
 package programmers.level1;
 
 public class Sol_12916 {
-
-    public static void main(String[] args) {
-
-        String str = "Pyy";
-
-        Solution solution = new Solution();
-
-        System.out.println(solution.solution(str));
-    }
-}
-
-class Solution {
-    boolean solution(String s) {
+    public boolean solution(String s) {
 
         String str = s.toLowerCase();
 
