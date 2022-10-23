@@ -13,7 +13,7 @@ public class Sol_120846 {
                 if (i % j == 0)
                     count++;
             }
-`
+
             if (count >= 3)
                 finalCount++;
         }

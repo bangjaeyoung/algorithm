@@ -4,38 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Sol_42840 {
-    public int[] solution(int[] answers) {
+    public int[] solution(int[] answer) {
 
-        StringBuilder firstMan = new StringBuilder(); //12345...
-        StringBuilder secondMan = new StringBuilder(); //21232425...
-        StringBuilder thirdMan = new StringBuilder(); //3311224455...
+        int[] a = {1, 2, 3, 4, 5};
+        int[] b = {2, 1, 2, 3, 2, 4, 2, 5};
+        int[] c = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
 
-        for (int i = 0; i < answers.length / 5 + 1; i++) {
-            firstMan.append("12345");
-            secondMan.append("21232425");
-            thirdMan.append("3311224455");
+        int[] score = new int[3];
+
+        // 삼인방의 각각 맞은 문제 수를 구하는 과정
+        for (int i = 0; i < answer.length; i++) {
+            if (answer[i] == a[i % a.length]) {
+                score[0]++;
+            }
+            if (answer[i] == b[i % b.length]) {
+                score[1]++;
+            }
+            if (answer[i] == c[i % c.length]) {
+                score[2]++;
+            }
         }
 
-        int[] solveCount = new int[3];
-
-        for (int i = 0; i < answers.length; i++) {
-            if (answers[i] == Character.getNumericValue(String.valueOf(firstMan).charAt(i))) solveCount[0]++;
-            if (answers[i] == Character.getNumericValue(String.valueOf(secondMan).charAt(i))) solveCount[1]++;
-            if (answers[i] == Character.getNumericValue(String.valueOf(thirdMan).charAt(i))) solveCount[2]++;
-        }
+        int maxScore = Math.max(score[0], Math.max(score[1], score[2]));
 
         List<Integer> result = new ArrayList<>();
-        int max = -1;
 
-        // 맞힌 문제 수의 최대값 구하기
-        for (int solve : solveCount) {
-            if (solve > max) max = solve;
-        }
-
-        // 그 최대값을 값으로 가지는 사람을 추출
-        for (int i = 0; i < solveCount.length; i++) {
-            if (solveCount[i] == max) result.add(i + 1); // 인덱스는 0, 1, 2 / 사람은 1, 2, 3
-        }
+        if (maxScore == score[0]) result.add(1);
+        if (maxScore == score[1]) result.add(2);
+        if (maxScore == score[2]) result.add(3);
 
         return result.stream().mapToInt(i -> i).toArray();
     }
