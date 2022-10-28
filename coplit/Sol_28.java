@@ -10,22 +10,23 @@ public class Sol_28 {
         // 예외 케이스
         if (str.length() == 0) return true;
 
-        str += " ";
-
         Stack<Character> bracketsStack = new Stack<>();
 
-        for (int i = 0; i < str.length() - 1; i++) {
+        for (int i = 0; i < str.length(); i++) {
             switch (str.charAt(i)) {
                 case '(': case '[': case '{':
                     bracketsStack.add(str.charAt(i));
                     break;
-                case ')': case ']': case '}':
+                case ')':
                     if (bracketsStack.isEmpty()) return false;	//EmptyStackException 에러 방지
-                    bracketsStack.pop();
+                    if (bracketsStack.pop() != (char) (str.charAt(i) - 1)) return false;  // 아스키 코드 값 '(' = ')' - 1
+                    break;
+                case ']': case '}':
+                    if (bracketsStack.isEmpty()) return false;	//EmptyStackException 에러 방지
+                    if (bracketsStack.pop() != (char) (str.charAt(i) - 2)) return false;  // 아스키 코드 값 '[', '{' = ']', '}' - 2
                     break;
             }
         }
         return bracketsStack.isEmpty();
     }
 }
-// [ ( ] { ) }
