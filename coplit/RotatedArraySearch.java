@@ -1,8 +1,8 @@
 package coplit;
 
 /* rotatedArraySearch */
-public class Sol_30 {
-    public int rotatedArraySearch(int[] rotated, int target) {
+public class RotatedArraySearch {
+    public int solution(int[] rotated, int target) {
         // 시간복잡도 O(N) 풀이
         // int answer = -1;
         // for (int i = 0; i < rotated.length; i++) {

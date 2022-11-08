@@ -5,8 +5,8 @@ package coplit;
   괄호는 닫힌 괄호가 시작되면, 이후로 열린 괄호가 입력될 수 없습니다.*/
 import java.util.Stack;
 
-public class Sol_28 {
-    public boolean balancedBrackets(String str) {
+public class BalancedBrackets {
+    public boolean solution(String str) {
         // 예외 케이스
         if (str.length() == 0) return true;
 

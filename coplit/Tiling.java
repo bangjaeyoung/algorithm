@@ -5,8 +5,8 @@ package coplit;
 //2. 초기 값 설정
 //3. 점화식 기반으로 계산 값 적용
 //4. 특정 입력 값에 따른 계산 값 적용
-public class Sol_29 {
-    public int tiling(int num) {
+public class Tiling {
+    public int solution(int num) {
         // 예외
         if (num == 1) return 1;
 
