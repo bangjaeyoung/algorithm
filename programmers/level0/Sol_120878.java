@@ -3,7 +3,7 @@ package programmers.level0;
 import java.util.Stack;
 
 // 유한소수이면 1, 무한소수이면 2 반환
-class Solution {
+class Sol_120878 {
     public int solution(int a, int b) {
         int result = 2;
 
