@@ -1,5 +1,5 @@
 package programmers.level0;
-// ** 이해 필요 ** //
+
 class Sol_120880 {
     public int[] solution(int[] numList, int n) {
         int size = numList.length;
