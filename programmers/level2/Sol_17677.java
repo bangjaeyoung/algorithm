@@ -2,7 +2,6 @@ package programmers.level2;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -16,7 +15,7 @@ import java.util.stream.Collectors;
  **/
 
 public class Sol_17677 {
-    public static int solution(String str1, String str2) {
+    public int solution(String str1, String str2) {
         str1 = str1.toUpperCase();
         str2 = str2.toUpperCase();
 
@@ -26,7 +25,7 @@ public class Sol_17677 {
         if (str1List.size() == 0 && str2List.size() == 0) return 65536;
 
         List<String> intersectionList = makeIntersectionList(str1List, str2List);
-        List<String> unionList = makeUnionList(str1List, str2List);
+        List<String> unionList = makeUnionList(str1List, str2List, intersectionList);
 
         double jaccardSimilarity = calculateJaccardSimilarity(intersectionList, unionList);
 
@@ -35,7 +34,7 @@ public class Sol_17677 {
         return answer;
     }
 
-    private static List<String> makeMultipleSets(String str) {
+    private List<String> makeMultipleSets(String str) {
         List<String> multipleSets = new ArrayList<>();
 
         for (int i = 0; i < str.length(); i++) {
@@ -49,7 +48,7 @@ public class Sol_17677 {
         return multipleSets;
     }
 
-    private static List<String> removeUnnecessarySets(List<String> multipleSets) {
+    private List<String> removeUnnecessarySets(List<String> multipleSets) {
         List<String> completedMultipleSets = multipleSets.stream()
                 .map(el -> el.replaceAll("[^A-Z]", ""))
                 .filter(el -> el.length() == 2)
@@ -58,36 +57,46 @@ public class Sol_17677 {
         return completedMultipleSets;
     }
 
-    private static List<String> makeIntersectionList(List<String> str1List, List<String> str2List) {
-        List<String> intersectionList = str1List.stream()
-                .filter(el -> str2List.stream().anyMatch(Predicate.isEqual(el)))
-                .collect(Collectors.toList());
+    private List<String> makeIntersectionList(List<String> str1List, List<String> str2List) {
+        List<String> intersectionList = new ArrayList<>();
+        List<String> copyOfStr2List = new ArrayList<>(str2List);
+
+        for (String str1 : str1List) {
+            for (int j = 0; j < copyOfStr2List.size(); j++) {
+                if (str1.equals(copyOfStr2List.get(j))) {
+                    intersectionList.add(copyOfStr2List.get(j));
+                    copyOfStr2List.remove(j);
+                    break;
+                }
+            }
+        }
 
         return intersectionList;
     }
 
-    private static List<String> makeUnionList(List<String> str1List, List<String> str2List) {
-        str1List.removeAll(str2List);
-
+    private List<String> makeUnionList(List<String> str1List, List<String> str2List, List<String> intersectionList) {
         List<String> unionList = new ArrayList<>();
         unionList.addAll(str1List);
         unionList.addAll(str2List);
 
+        for (String intersection : intersectionList) {
+            for (int j = 0; j < unionList.size(); j++) {
+                if (intersection.equals(unionList.get(j))) {
+                    unionList.remove(j);
+                    break;
+                }
+            }
+        }
+
         return unionList;
     }
 
-    private static double calculateJaccardSimilarity(List<String> intersectionList, List<String> unionList) {
+    private double calculateJaccardSimilarity(List<String> intersectionList, List<String> unionList) {
         double sizeOfIntersectionList = intersectionList.size();
         double sizeOfConsolidatedList = unionList.size();
 
         double jaccardSimilarity = sizeOfIntersectionList / sizeOfConsolidatedList;
 
         return jaccardSimilarity;
-    }
-
-    public static void main(String[] args) {
-        String str1 = "abab";
-        String str2 = "baba";
-        System.out.println("solution(str1, str2) = " + solution(str1, str2));
     }
 }
