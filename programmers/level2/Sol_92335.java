@@ -10,7 +10,6 @@ import java.util.Arrays;
  * ex) [211, 2, 1, 1, 11] → [211, 2, , , 11]
  * 4. 공백이 아닌 수들의 개수를 정답으로 반환한다.
  **/
-
 public class Sol_92335 {
     public int solution(int n, int k) {
         String num = Integer.toString(n, k);
