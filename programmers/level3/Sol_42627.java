@@ -42,3 +42,4 @@ public class Sol_42627 {
         return totalTime / jobs.length;
     }
 }
+
