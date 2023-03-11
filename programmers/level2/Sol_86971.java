@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Sol_86971 {
-    int[][] graph;
+    public static int[][] graph;
 
     public int solution(int n, int[][] wires) {
         int answer = n;
