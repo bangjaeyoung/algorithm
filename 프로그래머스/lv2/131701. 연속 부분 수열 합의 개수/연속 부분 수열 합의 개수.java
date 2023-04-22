@@ -2,30 +2,18 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] elements) {
-        List<Integer> sumList = new ArrayList<>();
+        Set<Integer> answer = new HashSet<>();
+        
         int length = elements.length;
-
         for (int i = 0; i < length; i++) {
-            for (int j = 0; j < length; j++) {
-                if (i == i + j) {
-                    sumList.add(elements[i]);
-                } else {
-                    sumList.add(doSum(elements, i, i + j));
+            for (int j = 1; j <= length; j++) {
+                int sum = 0;
+                for (int k = i; k < i + j; k++) {
+                    sum += elements[k % length];
                 }
+                answer.add(sum);
             }
         }
-        return (int) sumList.stream().distinct().count();
-    }
-    
-    private int doSum(int[] elements, int to, int end) {
-        int sum = 0;
-        for (int i = to; i <= end; i++) {
-            int tempIdx = i;
-            if (tempIdx >= elements.length) {
-                tempIdx %= elements.length;
-            }
-            sum += elements[tempIdx];
-        }
-        return sum;
+        return answer.size();
     }
 }
