@@ -13,9 +13,9 @@ class Solution {
                 idx2++;
                 continue;
             } else {
-                return new String("No");
+                return "No";
             }
         }
-        return new String("Yes");
+        return "Yes";
     }
 }
