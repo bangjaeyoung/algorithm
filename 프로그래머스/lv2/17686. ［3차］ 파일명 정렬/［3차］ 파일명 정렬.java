@@ -19,9 +19,9 @@ class Solution {
     private String getNum(String rest) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < rest.length(); i++) {
-            char curChar = rest.charAt(i);
-            if (Character.isDigit(curChar) && sb.length() <= 5) {
-                sb.append(curChar);
+            char c = rest.charAt(i);
+            if (Character.isDigit(c)) {
+                sb.append(c);
             } else break;
         }
         return String.valueOf(sb);
