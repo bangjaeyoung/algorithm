@@ -35,6 +35,7 @@ class Solution {
         if (visited[node]) return;
         
         visited[node] = true;
+        
         int size = graph.get(node).size();
         for (int i = 0; i < size; i++) {
             int value = graph.get(node).get(i);
