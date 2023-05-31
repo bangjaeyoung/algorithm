@@ -14,7 +14,7 @@ class Solution {
         visited[0][0] = true;
         bfs(0, 0, maps);
         
-        return maps[n - 1][m - 1] == 1 ? -1 : maps[n - 1][m - 1];
+        return maps[n-1][m-1] == 1 ? -1 : maps[n-1][m-1];
     }
     
     private void bfs(int i, int j, int[][] maps) {
