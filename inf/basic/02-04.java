@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+// 피보나치 수열
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
