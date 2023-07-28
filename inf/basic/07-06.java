@@ -14,19 +14,19 @@ public class Main {
         main.dfs(1);
     }
 
-    private void dfs(int num) {
-        if (num == n + 1) {
+    private void dfs(int depth) {
+        if (depth == n + 1) {
             for (int i = 0; i < n + 1; i++) {
                 if (chk[i] == 1)
                     System.out.print(i + " ");
             }
             System.out.println();
         } else {
-            chk[num] = 1;
-            dfs(num + 1);
+            chk[depth] = 1;
+            dfs(depth + 1);
           
-            chk[num] = 0;
-            dfs(num + 1);
+            chk[depth] = 0;
+            dfs(depth + 1);
         }
     }
 }
