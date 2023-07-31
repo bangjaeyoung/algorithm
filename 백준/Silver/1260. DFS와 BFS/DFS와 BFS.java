@@ -36,7 +36,7 @@ public class Main {
         
         visited[v] = true;
         answer.add(v);
-        dfs(v, 1);
+        dfs(v);
         for (int ans : answer) {
             System.out.print(ans + " ");
         }
@@ -51,15 +51,14 @@ public class Main {
         }
     }
     
-    private static void dfs(int vertex, int count) {
-        if (count == n) return;
+    private static void dfs(int vertex) {
+        if (answer.size() == n) return;
         else {
             for (int nextVertex : graph.get(vertex)) {
                 if (!visited[nextVertex]) {
                     visited[nextVertex] = true;
                     answer.add(nextVertex);
-                    count++;
-                    dfs(nextVertex, count);
+                    dfs(nextVertex);
                 }
             }
         }
