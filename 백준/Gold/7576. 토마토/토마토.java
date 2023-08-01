@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 class Point {
-    public int x, y;
+    int x, y;
 
     public Point(int x, int y) {
         this.x = x;
@@ -11,12 +11,11 @@ class Point {
 }
 
 public class Main {
-    static int n, m;
-    static int[][] board;
-    static int[][] day;
-    static int[] dx = {0, 1, 0, -1};
-    static int[] dy = {1, 0, -1, 0};
-    static Queue<Point> queue = new LinkedList<>();
+    static int[][] board, distance;
+    static int m, n;
+    static Queue<Point> queue;
+    static int[] dx = {-1, 0, 1, 0};
+    static int[] dy = {0, -1, 0, 1};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -24,20 +23,16 @@ public class Main {
 
         m = Integer.parseInt(st.nextToken());
         n = Integer.parseInt(st.nextToken());
-
         board = new int[n][m];
-        day = new int[n][m];
+        distance = new int[n][m];
+        queue = new LinkedList<>();
+
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
-
             for (int j = 0; j < m; j++) {
                 board[i][j] = Integer.parseInt(st.nextToken());
-            }
-        }
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (board[i][j] == 1 && day[i][j] == 0) {
+                if (board[i][j] == 1) {
                     queue.offer(new Point(i, j));
                 }
             }
@@ -45,47 +40,43 @@ public class Main {
 
         bfs();
 
-        int answer = 0;
         boolean flag = true;
-        Loop :
+        Loop:
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if (board[i][j] == 0 && day[i][j] == 0) {
-                    answer = -1;
+                if (board[i][j] == 0) {
                     flag = false;
                     break Loop;
                 }
             }
         }
 
+        int answer = Integer.MIN_VALUE;
         if (flag) {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < m; j++) {
-                    answer = Math.max(answer, day[i][j]);
+                    answer = Math.max(answer, distance[i][j]);
                 }
             }
+            System.out.println(answer);
+        } else {
+            System.out.print(-1);
         }
-
-        System.out.print(answer);
     }
 
     private static void bfs() {
         while (!queue.isEmpty()) {
-            int size = queue.size();
+            Point now = queue.poll();
 
-            for (int i = 0; i < size; i++) {
-                Point now = queue.poll();
+            for (int i = 0; i < 4; i++) {
+                int nextX = now.x + dx[i];
+                int nextY = now.y + dy[i];
 
-                for (int j = 0; j < 4; j++) {
-                    int nextX = now.x + dx[j];
-                    int nextY = now.y + dy[j];
-
-                    if (nextX >= 0 && nextY >= 0 && nextX < n && nextY < m) {
-                        if (day[nextX][nextY] == 0 && board[nextX][nextY] == 0) {
-                            board[nextX][nextY] = 1;
-                            day[nextX][nextY] = day[now.x][now.y] + 1;
-                            queue.offer(new Point(nextX, nextY));
-                        }
+                if (nextX >= 0 && nextX < n && nextY >= 0 && nextY < m) {
+                    if (board[nextX][nextY] == 0) {
+                        board[nextX][nextY] = 1;
+                        distance[nextX][nextY] = distance[now.x][now.y] + 1;
+                        queue.offer(new Point(nextX, nextY));
                     }
                 }
             }
