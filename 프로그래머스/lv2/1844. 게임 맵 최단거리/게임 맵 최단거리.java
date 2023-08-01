@@ -1,38 +1,48 @@
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Solution {
     static int n, m;
-    static boolean[][] visited;
     static int[] dx = {0, 1, 0, -1};
     static int[] dy = {1, 0, -1, 0};
-    
+    static int[][] distance;
+
+    static class Point {
+        int x, y;
+
+        public Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
     public int solution(int[][] maps) {
         n = maps.length;
         m = maps[0].length;
-        visited = new boolean[n][m];
-        
-        visited[0][0] = true;
+        distance = new int[n][m];
+        distance[0][0] = 1;
         bfs(0, 0, maps);
-        
-        return maps[n-1][m-1] == 1 ? -1 : maps[n-1][m-1];
+
+        return distance[n-1][m-1] == 0 ? -1 : distance[n-1][m-1];
     }
-    
+
     private void bfs(int i, int j, int[][] maps) {
-        Queue<int[]> queue = new LinkedList<>();
-        queue.offer(new int[]{i, j});
-        
+        Queue<Point> queue = new LinkedList<>();
+        queue.offer(new Point(i, j));
+        maps[i][j] = 0;
+
         while (!queue.isEmpty()) {
-            int[] now = queue.poll();
-            
+            Point now = queue.poll();
+
             for (int k = 0; k < 4; k++) {
-                int nextX = now[0] + dx[k];
-                int nextY = now[1] + dy[k];
-                
+                int nextX = now.x + dx[k];
+                int nextY = now.y + dy[k];
+
                 if (nextX >= 0 && nextY >= 0 && nextX < n && nextY < m) {
-                    if (!visited[nextX][nextY] && maps[nextX][nextY] != 0) {
-                        visited[nextX][nextY] = true;
-                        maps[nextX][nextY] = maps[now[0]][now[1]] + 1;
-                        queue.offer(new int[]{nextX, nextY});
+                    if (maps[nextX][nextY] != 0) {
+                        maps[nextX][nextY] = 0;
+                        distance[nextX][nextY] = distance[now.x][now.y] + 1;
+                        queue.offer(new Point(nextX, nextY));
                     }
                 }
             }
