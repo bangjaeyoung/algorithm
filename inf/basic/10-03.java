@@ -28,7 +28,7 @@ public class Main {
     for (int i = 1; i < len; i++) {
       int max = 0;
       
-      for (int j = 0; j <= i-1; j++) {
+      for (int j = i-1; j >= 0; j--) {
         if (arr[i] > arr[j] && dy[j] > max) {
           max = dy[j];
         }
