@@ -14,7 +14,7 @@ public class Main {
     }
 
     private static void dfs(int level, int start) {
-        if (level == n) {
+        if (level == m) {
             for (int c : combination) {
                 System.out.print(c + " ");
             }
