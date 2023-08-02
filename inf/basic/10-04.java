@@ -49,7 +49,7 @@ public class Main {
     for (int i = 1; i < n; i++) {
       int max = 0;
       
-      for (int j = 0; j <= i-1; j++) {
+      for (int j = i-1; j >= 0; j--) {
         if (bricks.get(i).weight < bricks.get(j).weight && dy[j] > max) {
           max = dy[j];
         }
