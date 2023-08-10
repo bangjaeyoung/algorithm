@@ -68,7 +68,7 @@ public class Main {
 
 
                 if (nextX >= 0 && nextY >= 0 && nextX < n && nextY < m) {
-                    // 벽을 부신 적이 있는 경우
+                    // 상하좌우 중 바로 이전의 경로 탐색은 생략
                     if (destroyCounts[nextX][nextY] <= now.destroyCount) continue;
 
                     // 통로인 경우
@@ -78,6 +78,7 @@ public class Main {
                     }
                     // 벽인 경우
                     else if (map[nextX][nextY] == 1) {
+                        // 현재까지 벽을 부신 적이 없을 경우
                         if (now.destroyCount == 0) {
                             destroyCounts[nextX][nextY] = now.destroyCount + 1;
                             queue.offer(new Point(nextX, nextY, now.distance + 1, now.destroyCount + 1));
