@@ -1,4 +1,3 @@
-import java.util.*;
 import java.io.*;
 
 class Point {
@@ -33,13 +32,7 @@ public class Main {
         }
 
         // 적록색약 아닌 사람이 볼 때
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                if (copyMap[i][j] != 'X') {
-                    bfs(copyMap, i, j);
-                }
-            }
-        }
+        countArea(copyMap);
 
         answer.append(cnt).append(" ");
 
@@ -55,40 +48,35 @@ public class Main {
             }
         }
 
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                if (map[i][j] != 'X') {
-                    bfs(map, i, j);
-                }
-            }
-        }
+        countArea(map);
 
         answer.append(cnt);
 
         System.out.println(answer);
     }
 
-    private static void bfs(char[][] map, int x, int y) {
-        Queue<Point> queue = new LinkedList<>();
-        queue.offer(new Point(x, y));
+    private static void countArea(char[][] map) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (map[i][j] != 'X') {
+                    dfs(map, i, j);
+                    cnt++;
+                }
+            }
+        }
+    }
 
+    private static void dfs(char[][] map, int x, int y) {
         char currentColor = map[x][y];
         map[x][y] = 'X';
-        cnt++;
 
-        // 영역 탐색이 끝난 곳은 모두 X로 표시
-        while (!queue.isEmpty()) {
-            Point now = queue.poll();
+        for (int i = 0; i < 4; i++) {
+            int nextX = x + dx[i];
+            int nextY = y + dy[i];
 
-            for (int i = 0; i < 4; i++) {
-                int nextX = now.x + dx[i];
-                int nextY = now.y + dy[i];
-
-                if (nextX >= 0 && nextY >= 0 && nextX < N && nextY < N) {
-                    if (map[nextX][nextY] == currentColor) {
-                        map[nextX][nextY] = 'X';
-                        queue.offer(new Point(nextX, nextY));
-                    }
+            if (nextX >= 0 && nextY >= 0 && nextX < N && nextY < N) {
+                if (map[nextX][nextY] == currentColor) {
+                    dfs(map, nextX, nextY);
                 }
             }
         }
