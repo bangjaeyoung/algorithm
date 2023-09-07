@@ -10,22 +10,21 @@ class Edge implements Comparable<Edge> {
     }
 
     @Override
-    public int compareTo(Edge o) {
-        return this.cost - o.cost;
+    public int compareTo(Edge ob) {
+        return this.cost - ob.cost;
     }
 }
 
 public class Main {
-    static int N, M;
-    static List<List<Edge>> graph;
     static int[] dis;
+    static List<List<Edge>> graph;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
-        N = Integer.parseInt(br.readLine());
-        M = Integer.parseInt(br.readLine());
+        int N = Integer.parseInt(br.readLine());
+        int M = Integer.parseInt(br.readLine());
 
         graph = new ArrayList<>();
         for (int i = 0; i <= N; i++) {
@@ -62,15 +61,13 @@ public class Main {
 
         while (!pQ.isEmpty()) {
             Edge now = pQ.poll();
-            int nowV = now.vertex;
-            int nowC = now.cost;
 
-            if (nowC > dis[nowV]) continue;
+            if (now.cost > dis[now.vertex]) continue;
 
-            for (Edge o : graph.get(nowV)) {
-                if (dis[o.vertex] > nowC + o.cost) {
-                    dis[o.vertex] = nowC + o.cost;
-                    pQ.offer(new Edge(o.vertex, nowC + o.cost));
+            for (Edge ob : graph.get(now.vertex)) {
+                if (dis[ob.vertex] > now.cost + ob.cost) {
+                    dis[ob.vertex] = now.cost + ob.cost;
+                    pQ.offer(new Edge(ob.vertex, now.cost + ob.cost));
                 }
             }
         }
