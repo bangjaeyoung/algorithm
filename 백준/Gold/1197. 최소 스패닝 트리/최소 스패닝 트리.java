@@ -1,23 +1,18 @@
 import java.io.*;
 import java.util.*;
 
-/**
- * Union & Find Algorithm
- */
 class Edge implements Comparable<Edge> {
-    int v1;
-    int v2;
-    int cost;
+    int v1, v2, cost;
 
-    public Edge(int v1, int v2, int cost) {
+    Edge(int v1, int v2, int cost) {
         this.v1 = v1;
         this.v2 = v2;
         this.cost = cost;
     }
 
     @Override
-    public int compareTo(Edge edge) {
-        return this.cost - edge.cost;
+    public int compareTo(Edge ob) {
+        return this.cost - ob.cost;
     }
 }
 
@@ -32,53 +27,48 @@ public class Main {
         int E = Integer.parseInt(st.nextToken());
 
         unf = new int[V + 1];
-        List<Edge> edges = new ArrayList<>();
-
         for (int i = 1; i <= V; i++)
             unf[i] = i;
 
+        List<Edge> edges = new ArrayList<>();
+        int v1, v2, cost;
         for (int i = 0; i < E; i++) {
             st = new StringTokenizer(br.readLine());
-            int v1 = Integer.parseInt(st.nextToken());
-            int v2 = Integer.parseInt(st.nextToken());
-            int cost = Integer.parseInt(st.nextToken());
+
+            v1 = Integer.parseInt(st.nextToken());
+            v2 = Integer.parseInt(st.nextToken());
+            cost = Integer.parseInt(st.nextToken());
 
             edges.add(new Edge(v1, v2, cost));
         }
 
         Collections.sort(edges);
 
-        int ans = 0;
-        int cnt = 0;
+        int ans = 0, cnt = 0;
+        for (Edge ob : edges) {
+            int fv1 = find(ob.v1);
+            int fv2 = find(ob.v2);
 
-        for (Edge edge : edges) {
-            if (union(edge.v1, edge.v2)) {
-                ans += edge.cost;
+            if (fv1 != fv2) {
+                union(fv1, fv2);
+                ans += ob.cost;
                 cnt++;
-
-                if (cnt == E - 1) break;
             }
+
+            if (cnt - 1 == V) break;
         }
 
         System.out.println(ans);
     }
 
-    static int find(int v) {
-        if (unf[v] == v)
-            return v;
+    private static int find(int vertex) {
+        if (vertex == unf[vertex])
+            return vertex;
         else
-            return unf[v] = find(unf[v]);
+            return unf[vertex] = find(unf[vertex]);
     }
 
-    static boolean union(int v1, int v2) {
-        int fv1 = find(v1);
-        int fv2 = find(v2);
-
-        if (fv1 == fv2)
-            return false;
-        else {
-            unf[fv2] = fv1;
-            return true;
-        }
+    private static void union(int v1, int v2) {
+        unf[v1] = v2;
     }
 }
